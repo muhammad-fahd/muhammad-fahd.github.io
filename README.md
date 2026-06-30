@@ -38,6 +38,7 @@ https://<your-github-username>.github.io/
 - Selected work / project domains
 - Experience timeline
 - Recognition and awards
+- LinkedIn recommendations / colleague feedback
 - Certifications
 - Education
 - Contact section with CV download
