@@ -81,4 +81,38 @@
         visitCountEl.closest('.visit-counter')?.remove();
       });
   }
+
+  const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (canHover && !prefersReducedMotion) {
+    const root = document.documentElement;
+    let rafId = null;
+    let lastX = window.innerWidth / 2;
+    let lastY = window.innerHeight * 0.2;
+
+    const applyGlowPosition = () => {
+      root.style.setProperty('--spot-x', `${lastX}px`);
+      root.style.setProperty('--spot-y', `${lastY}px`);
+      rafId = null;
+    };
+
+    window.addEventListener('mousemove', (event) => {
+      lastX = event.clientX;
+      lastY = event.clientY;
+      if (rafId === null) {
+        rafId = requestAnimationFrame(applyGlowPosition);
+      }
+    });
+
+    document.querySelectorAll(
+      '.hero-card, .skill-card, .work-card, .recognition-card, .recommendation-card, .contact-card, .education-grid article'
+    ).forEach((card) => {
+      card.addEventListener('mousemove', (event) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--x', `${event.clientX - rect.left}px`);
+        card.style.setProperty('--y', `${event.clientY - rect.top}px`);
+      });
+    });
+  }
 })();
