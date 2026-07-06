@@ -65,4 +65,20 @@
       }
     });
   }
+
+  const visitCountEl = document.getElementById('visitCount');
+  if (visitCountEl) {
+    const VISIT_COUNTER_ENDPOINT = 'https://visit-counter.profile-visits.workers.dev';
+    const mode = sessionStorage.getItem('visitCounted') ? 'read' : 'write';
+
+    fetch(`${VISIT_COUNTER_ENDPOINT}?mode=${mode}`)
+      .then((res) => res.json())
+      .then((data) => {
+        visitCountEl.textContent = Number(data.count).toLocaleString();
+        sessionStorage.setItem('visitCounted', '1');
+      })
+      .catch(() => {
+        visitCountEl.closest('.visit-counter')?.remove();
+      });
+  }
 })();

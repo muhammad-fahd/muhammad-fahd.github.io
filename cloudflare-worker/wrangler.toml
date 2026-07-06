@@ -1,0 +1,7 @@
+name = "visit-counter"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+kv_namespaces = [
+  { binding = "VISITS", id = "8a8e54c3f8314b04a98eeedf66a631cc" }
+]
